@@ -31,6 +31,9 @@ public class CEEItems {
         REGISTRATE.defaultCreativeTab((ResourceKey<CreativeModeTab>) null);
     }
 
+    public static final ItemEntry<EmptySpoolItem> EMPTY_SPOOL = REGISTRATE.item("empty_spool", EmptySpoolItem::new)
+            .register();
+
     public static final ItemEntry<WireSpoolItem> WIRE_SPOOL = insulatedWireSpoolItem("wire_spool", CEEWireTypes.STANDARD, () -> CEEConfigs.server().voltageValues.wireMaxVoltage.get());
 
     public static final ItemEntry<WireSpoolItem> HEAVILY_INSULATED_WIRE_SPOOL = insulatedWireSpoolItem("heavily_insulated_wire_spool", CEEWireTypes.HEAVILY_INSULATED, () -> CEEConfigs.server().voltageValues.heavilyInsulatedWireMaxVoltage.get());
@@ -47,6 +50,7 @@ public class CEEItems {
 
     public static final ItemEntry<WireSpoolItem> GLASS_INSULATOR_SPOOL = REGISTRATE.item("glass_insulator_spool", properties -> new WireSpoolItem(properties, CEEWireTypes.GLASS_INSULATOR))
             .tag(CEETags.WIRE_SPOOLS)
+            .properties(p -> p.craftRemainder(CEEItems.EMPTY_SPOOL.get()))
             .register();
 
     public static final ItemEntry<HangingWireSpoolItem> HANGING_GLASS_INSULATION = hangingWireSpoolItem("hanging_glass_insulator", CEEWireTypes.GLASS_INSULATOR);
@@ -60,9 +64,6 @@ public class CEEItems {
 
     public static final ItemEntry<BundledWireItem> DUPLEX_WIRE_SPOOL = REGISTRATE.item("duplex_wire_spool",
                     properties -> new BundledWireItem(properties, BundledWireType.DUPLEX))
-            .register();
-
-    public static final ItemEntry<EmptySpoolItem> EMPTY_SPOOL = REGISTRATE.item("empty_spool", EmptySpoolItem::new)
             .register();
 
     public static final ItemEntry<Item> INSULATED_WIRE = REGISTRATE.item("insulated_wire", Item::new)
@@ -125,6 +126,7 @@ public class CEEItems {
     private static @NotNull ItemEntry<WireSpoolItem> simpleWireSpoolItem(String name, DeferredHolder<WireType, WireType> wireType) {
         return REGISTRATE.item(name, properties -> new WireSpoolItem(properties, wireType))
                 .tag(CEETags.WIRE_SPOOLS)
+                .properties(p -> p.craftRemainder(CEEItems.EMPTY_SPOOL.get()))
                 .onRegister(i -> ElectricStatsTooltipModifier.ALL_ENTRIES.register(i, new ElectricStatsTooltipModifier.ElectricStatSet()
                         .addResistancePerMeter(() -> wireType.get().getResistance())
                         .addMaxCurrent(() -> wireType.get().getMaxTemperature() / 30 + 33.33)))
@@ -135,12 +137,14 @@ public class CEEItems {
     private static @NotNull ItemEntry<HangingWireSpoolItem> hangingWireSpoolItem(String name, DeferredHolder<WireType, WireType> wireType) {
         return REGISTRATE.item(name, properties -> new HangingWireSpoolItem(properties, wireType))
                 .tag(CEETags.HANGED_WIRE_SPOOLS)
+                .properties(p -> p.craftRemainder(CEEItems.EMPTY_SPOOL.get()))
                 .register();
     }
 
     private static @NotNull ItemEntry<WireSpoolItem> insulatedWireSpoolItem(String name, DeferredHolder<WireType, WireType> wireType, DoubleSupplier insulationVoltage) {
         return REGISTRATE.item(name, properties -> new WireSpoolItem(properties, wireType))
                 .tag(CEETags.WIRE_SPOOLS)
+                .properties(p -> p.craftRemainder(CEEItems.EMPTY_SPOOL.get()))
                 .onRegister(i -> ElectricStatsTooltipModifier.ALL_ENTRIES.register(i, new ElectricStatsTooltipModifier.ElectricStatSet()
                         .addResistancePerMeter(() -> wireType.get().getResistance())
                         .addMaxVoltage(insulationVoltage)

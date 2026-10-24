@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "electroenergetics:iron_bus_spool"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "id": "minecraft:iron_ingot"
+  }
+}

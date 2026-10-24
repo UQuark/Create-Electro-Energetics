@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "electroenergetics:glass_insulator_spool"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "id": "electroenergetics:glass_insulator_segment"
+  }
+}

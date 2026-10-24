@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "electroenergetics:iron_wire_spool"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "id": "electroenergetics:iron_wire_strand"
+  }
+}
